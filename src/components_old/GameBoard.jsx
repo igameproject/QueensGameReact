@@ -8,7 +8,7 @@ export default function GameBoard({handleSquareSelect, board}){
                         {row.map((col, colIndex) => 
                             (
                                 <li key={colIndex}>
-                                    <button onClick={() => handleSquareSelect(rowIndex, colIndex)}>{col}</button>
+                                    <button onClick={() => handleSquareSelect(rowIndex, colIndex)} disabled={col !== null}>{col}</button>
                                 </li>
                             )
                         )}
