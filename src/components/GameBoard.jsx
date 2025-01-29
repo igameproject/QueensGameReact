@@ -2,8 +2,6 @@ import {Colors} from "../App";
 
 export default function GameBoard({ handleSquareSelect, board, layerBoard }) {
     return (
-        
-    
       <ol id="game-board">
         {board.map((row, rowIndex) => (
           <li key={rowIndex}>

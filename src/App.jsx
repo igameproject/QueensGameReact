@@ -22,7 +22,6 @@ const INITIAL_GAME_BOARD = [
     [null, null, null, null, null],
 ];
 
-
 const LAYER_BOARD = [
   [0, 0, 1, 1, 2],
   [0, 1, 1, 2, 2],
@@ -38,13 +37,36 @@ function App() {
 
   function handleSquareSelect(row, col){
     let newBoard = currentBoard.map(arr => [...arr]);
-    console.log(currentBoard[row][col])
-    if(currentBoard[row][col]?.props?.src === "/src/assets/x.png"){
+    // if(currentBoard[row][col]?.props?.src === "/src/assets/x.png"){
+    //   newBoard[row][col] = <img src={queenImage} alt="queen image" />;
+    //   setCurrentBoard(newBoard);
+    // } else {
+    //   newBoard[row][col] = <img src={xImage} alt="x image" />;
+    //   setCurrentBoard(newBoard);
+    // }
+
+    if(currentBoard[row][col]=== null){
       newBoard[row][col] = <img src={queenImage} alt="queen image" />;
       setCurrentBoard(newBoard);
-    } else {
-      newBoard[row][col] = <img src={xImage} alt="x image" />;
+    }
+    else {
+      newBoard[row][col] = null;
       setCurrentBoard(newBoard);
+    }
+  }
+
+  function checkBoard(){
+    const rowHasOneQueen = checkRowHasOneQueen();
+    const colHasOneQueen = checkColumnHasOneQueen();
+    const regionHasOneQueen = checkRegionHasOneQueen();
+    if(!rowHasOneQueen){
+      //highlight given row with red color
+    }
+    if(!colHasOneQueen){
+      //highlight given column with red color
+    }
+    if(!regionHasOneQueen){
+      //highlight given region with red color
     }
   }
 
