@@ -1,3 +1,4 @@
+import React from "react";
 import {Colors} from "../App";
 import "./GameBoard.css";
 
@@ -15,8 +16,8 @@ export default function GameBoard({ handleSquareSelect, board, layerBoard, check
                     style={{
                       "background":checkLayerBoard[rowIndex][colIndex] === 0 
                       ? Colors[layerBoard[rowIndex][colIndex]] : "red",
-                      "border": checkLayerBoard[rowIndex][colIndex] === 1 && "2px dashed white",
-                      "opacity": checkLayerBoard[rowIndex][colIndex] === 1 && 0.6,
+                      "border": checkLayerBoard[rowIndex][colIndex] === 1 ? "2px dashed white" : "none",
+                      "opacity": checkLayerBoard[rowIndex][colIndex] === 1 ? 0.6 : 1,
                     
                     }}
                   >

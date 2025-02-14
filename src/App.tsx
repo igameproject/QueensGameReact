@@ -1,10 +1,12 @@
+
+import React from "react";
 import GameBoard from "./components/GameBoard";
 import Instructions from "./components/Instructions";
 // import Log from "./components/Log";
 // import GameOver from "./components/GameOver";
 import { useState } from "react";
 import queenImage from "./assets/queen.png";
-import xImage from "./assets/x.png";
+// import xImage from "./assets/x.png";
 
 export const Colors = [
   "#A3D2D8", 
@@ -14,7 +16,7 @@ export const Colors = [
   "#B3DFA0"
 ]
 
-const INITIAL_GAME_BOARD = [
+const INITIAL_GAME_BOARD: (null|Element)[][] = [
     [null, null, null, null, null],
     [null, null, null, null, null],
     [null, null, null, null, null],
@@ -64,18 +66,22 @@ function App() {
     }
   }
 
-  function checkRowIsValid(){
-
+  function checkRowIsValid(): boolean{
+    return false
   }
 
-  function checkColIsValid(){
+  function checkColIsValid(): boolean{
+    return false
     
   }
 
+  function checkRegionIsValid(): boolean{return false}
+
+
   function checkBoard(){
-    const rowHasOneQueen = checkRowHasOneQueen();
-    const colHasOneQueen = checkColumnHasOneQueen();
-    const regionHasOneQueen = checkRegionHasOneQueen();
+    const rowHasOneQueen = checkRowIsValid();
+    const colHasOneQueen = checkColIsValid();
+    const regionHasOneQueen = checkRegionIsValid();
     if(!rowHasOneQueen){
       //highlight given row with red color
     }
