@@ -30,6 +30,15 @@ const LAYER_BOARD = [
   [3, 3, 3, 4, 4],
 ];
 
+const CHECK_LAYER_BOARD = [
+  [0, 0, 0, 0, 1],
+  [0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 1],
+  [0, 0, 0, 0, 1],
+];
+
+
 
 
 function App() {
@@ -46,13 +55,21 @@ function App() {
     // }
 
     if(currentBoard[row][col]=== null){
-      newBoard[row][col] = <img src={queenImage} alt="queen image" />;
+      newBoard[row][col] = <img src={queenImage} alt="queen image" height={60} width={60}/>;
       setCurrentBoard(newBoard);
     }
     else {
       newBoard[row][col] = null;
       setCurrentBoard(newBoard);
     }
+  }
+
+  function checkRowIsValid(){
+
+  }
+
+  function checkColIsValid(){
+    
   }
 
   function checkBoard(){
@@ -75,7 +92,7 @@ function App() {
         {/* {(winner || isDraw )  && <GameOver winner={winner} resetGame={resetGame} />} */}
         <div className="game-section">
           <div className="board-section">
-              <GameBoard handleSquareSelect={(row,col)=>{handleSquareSelect(row, col)}} board={currentBoard} layerBoard={LAYER_BOARD} />
+              <GameBoard handleSquareSelect={(row,col)=>{handleSquareSelect(row, col)}} board={currentBoard} layerBoard={LAYER_BOARD} checkLayerBoard={CHECK_LAYER_BOARD} />
           </div>
 
           <div className="instruction-section">

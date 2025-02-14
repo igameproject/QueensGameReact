@@ -1,0 +1,17 @@
+.game-board-cell {
+    position: relative;
+}
+
+.grid-cell-layer-1, .grid-cell-layer-2 {
+    position: relative;
+    z-index: 1;
+  }
+
+.grid-cell-layer-2 {
+    position: absolute;
+    z-index: 2;
+    
+    /* left: -10px; */
+    color: white;
+    opacity: 0.4;
+}
