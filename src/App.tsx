@@ -16,7 +16,7 @@ export const Colors = [
   "#B3DFA0"
 ]
 
-const INITIAL_GAME_BOARD: (null|Element)[][] = [
+const INITIAL_GAME_BOARD: (any)[][] = [
     [null, null, null, null, null],
     [null, null, null, null, null],
     [null, null, null, null, null],
@@ -57,7 +57,7 @@ function App() {
     // }
 
     if(currentBoard[row][col]=== null){
-      newBoard[row][col] = <img src={queenImage} alt="queen image" height={60} width={60}/>;
+      newBoard[row][col] = <img src={queenImage} alt="queen image" height={60} width={60} />;
       setCurrentBoard(newBoard);
     }
     else {
