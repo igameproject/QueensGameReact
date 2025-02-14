@@ -3,7 +3,6 @@ import {Colors} from "../App";
 import "./GameBoard.css";
 
 export default function GameBoard({ handleSquareSelect, board, layerBoard, checkLayerBoard }) {
-  console.log(board)
     return (
       <ol id="game-board">
         {board.map((row, rowIndex) => (

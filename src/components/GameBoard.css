@@ -10,8 +10,6 @@
 .grid-cell-layer-2 {
     position: absolute;
     z-index: 2;
-    
-    /* left: -10px; */
     color: white;
     opacity: 0.4;
 }
