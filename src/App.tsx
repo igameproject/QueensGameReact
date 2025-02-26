@@ -6,6 +6,7 @@ import Instructions from "./components/Instructions";
 // import GameOver from "./components/GameOver";
 import { useState } from "react";
 import queenImage from "./assets/queen.png";
+
 // import xImage from "./assets/x.png";
 
 export const Colors = [
@@ -44,6 +45,7 @@ const CHECK_LAYER_BOARD = [
 function App() {
   const [currentBoard, setCurrentBoard] = useState(INITIAL_GAME_BOARD);
   const [checkLayerBoard, setCheckLayerBoard] = useState(CHECK_LAYER_BOARD);
+  const [queenList, setQueenList] = useState<number[][]>([]);
   const rowRef = useRef(null)
   const colRef = useRef(null)
 
@@ -53,18 +55,30 @@ function App() {
      return
     }
     markRowCol(row, col, !checkRowIsValid(row), !checkColIsValid(col))
+    if(!checkNeighbours(row, col)){
+      alert("Queens too near")
+    }
+    console.log(queenList)
   }, [currentBoard]);
 
+  
   function handleSquareSelect(row, col){
     let newBoard = currentBoard.map(arr => [...arr]);
 
     if(currentBoard[row][col]=== null){
       newBoard[row][col] = <img src={queenImage} alt="queen image" height={60} width={60} />;
       setCurrentBoard(newBoard);
+      setQueenList([...queenList, [row, col]]);
     }
     else {
       newBoard[row][col] = null;
       setCurrentBoard(newBoard);
+      for(let i=0; i<queenList.length; i++){
+        if(queenList[i][0] === row && queenList[i][1] === col){
+          setQueenList(queenList.filter((_, index) => index !== i));
+          break;
+        }
+      }
     }
 
     rowRef.current = row;
@@ -125,6 +139,87 @@ function App() {
     }
     return true
   }
+
+  function checkNeighbours(row: int, col: int){
+    // only on corners
+    if (row === 0 && col === 0){
+      return (currentBoard[row + 1][col] === null 
+        && currentBoard[row + 1][col + 1 ] === null 
+        && currentBoard[row][col + 1 ] === null)
+    }
+    if (row === 0 && col === currentBoard[0].length - 1){
+      return (currentBoard[row ][col - 1] === null 
+        && currentBoard[row + 1][col - 1 ] === null 
+        && currentBoard[row + 1][col] === null)
+    }
+
+    if (col === 0 && row === currentBoard.length - 1){
+      return (currentBoard[row - 1][col] === null 
+        && currentBoard[row - 1][col + 1 ] === null 
+        && currentBoard[row][col + 1] === null)
+    }
+
+    if (col === currentBoard[0].length - 1 && row === currentBoard.length - 1){
+      return (currentBoard[row ][col - 1] === null 
+        && currentBoard[row - 1][col - 1 ] === null 
+        && currentBoard[row - 1][col] === null)
+    }
+
+    // only on sides
+    debugger
+    if (row === 0){
+      return (currentBoard[row][col + 1] === null && 
+        currentBoard[row + 1][col + 1 ] === null && 
+        currentBoard[row + 1][col] === null && 
+        currentBoard[row + 1][col - 1] === null && 
+        currentBoard[row][col - 1] === null)
+    }
+    if (col === 0){
+      return (currentBoard[row + 1][col] === null && 
+        currentBoard[row + 1][col + 1 ] === null && 
+        currentBoard[row][col + 1 ] === null && 
+        currentBoard[row - 1][col + 1] === null && 
+        currentBoard[row - 1][col] === null)
+    }
+
+    if (row === currentBoard.length - 1){
+      return (currentBoard[row][col + 1] === null && 
+        currentBoard[row - 1][col + 1 ] === null && 
+        currentBoard[row - 1][col] === null && 
+        currentBoard[row - 1][col - 1] === null && 
+        currentBoard[row][col - 1] === null)
+    }
+    if (col === currentBoard[0].length - 1){
+      return (currentBoard[row + 1][col] === null && 
+        currentBoard[row + 1][col - 1 ] === null && 
+        currentBoard[row][col - 1] === null && 
+        currentBoard[row - 1][col - 1] === null && 
+        currentBoard[row - 1][col] === null)
+    }
+
+    return (currentBoard[row + 1][col + 1 ] === null && 
+    currentBoard[row][col + 1 ] === null && 
+    currentBoard[row - 1][col + 1] === null && 
+    currentBoard[row - 1][col ] === null &&
+    currentBoard[row + 1][col - 1] === null && 
+    currentBoard[row][col - 1] === null &&
+    currentBoard[row - 1][col - 1] === null && 
+    currentBoard[row + 1][col] === null)
+
+  }
+
+  function checkQueenInLayer(row: int, col: int){
+    for (let i = 0; i < currentBoard.length; i++) {
+     
+    }
+  }
+
+
+  // if there is a queen in neighbouring squares, get its position and 
+  // turn both current queen and neighbouring queen to red queen 
+  // 
+
+  
 
   // function checkColIsValid(): boolean{
   //   return false
