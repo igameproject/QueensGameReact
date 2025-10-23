@@ -1,13 +1,11 @@
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import GameBoard from "./components/GameBoard";
 import Instructions from "./components/Instructions";
 // import Log from "./components/Log";
 // import GameOver from "./components/GameOver";
 import { useState } from "react";
-import queenImage from "./assets/queen.png";
-
-// import xImage from "./assets/x.png";
+import queenImage from "./public/queen.png"; 
 
 export const Colors = [
   "#A3D2D8", 
