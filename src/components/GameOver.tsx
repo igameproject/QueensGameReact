@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function GameOver({resetGame}) {
+interface GameOverProps {
+  resetGame: () => void;
+}
+export default function GameOver({resetGame}: GameOverProps) {
   return (
     <div id="game-over">
       <h2>Game Over!</h2>

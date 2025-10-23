@@ -1,14 +1,20 @@
 import React from "react";
 import {Colors} from "../App";
 import "./GameBoard.css";
+interface GameBoardProps {
+  handleSquareSelect: (row: number, col: number) => void;
+  board: (any)[][];
+  layerBoard: number[][];
+  checkLayerBoard: number[][];
+}
 
-export default function GameBoard({ handleSquareSelect, board, layerBoard, checkLayerBoard }) {
+export default function GameBoard({ handleSquareSelect, board, layerBoard, checkLayerBoard }: GameBoardProps) {
     return (
       <ol id="game-board">
-        {board.map((row, rowIndex) => (
+        {board.map((row: any[], rowIndex: number) => (
           <li key={rowIndex}>
             <ol>
-              {row.map((col, colIndex) => (
+              {row.map((col: any, colIndex: number) => (
                 <li key={colIndex}>
                   <button
                     onClick={() => handleSquareSelect(rowIndex, colIndex)}

@@ -44,8 +44,8 @@ function App() {
   const [currentBoard, setCurrentBoard] = useState(INITIAL_GAME_BOARD);
   const [checkLayerBoard, setCheckLayerBoard] = useState(CHECK_LAYER_BOARD);
   const [queenList, setQueenList] = useState<number[][]>([]);
-  const rowRef = useRef(null)
-  const colRef = useRef(null)
+  const rowRef = useRef<number | null>(null)
+  const colRef = useRef<number | null>(null)
 
   useEffect(() => {
    const [row, col] = [rowRef.current, colRef.current]
@@ -60,7 +60,7 @@ function App() {
   }, [currentBoard]);
 
   
-  function handleSquareSelect(row, col){
+  function handleSquareSelect(row: number, col: number){
     let newBoard = currentBoard.map(arr => [...arr]);
 
     if(currentBoard[row][col]=== null){
@@ -83,7 +83,7 @@ function App() {
     colRef.current = col;
   }
 
-  function markRowCol(row: int, col: int, rowInvalid: bool, colInvalid: bool){
+  function markRowCol(row: number, col: number, rowInvalid: boolean, colInvalid: boolean){
     let newboard = checkLayerBoard.map(arr => [...arr]);
     for (let i = 0; i < newboard[row].length; i++) {
       // if invalid set all row values to 1
@@ -110,7 +110,7 @@ function App() {
   }
 
 
-  function checkRowIsValid(row: int){
+  function checkRowIsValid(row: number){
     // checks all element in row and makes sure no two queens are in the same row
     let queenCount = 0
     for (let i = 0; i < currentBoard[row].length; i++) {
@@ -124,7 +124,7 @@ function App() {
     return true
   }
 
-  function checkColIsValid(col: int){
+  function checkColIsValid(col: number){
     // checks all element in row and makes sure no two queens are in the same row
     let queenCount = 0
     for (let i = 0; i < currentBoard.length; i++) {
@@ -138,7 +138,7 @@ function App() {
     return true
   }
 
-  function checkNeighbours(row: int, col: int){
+  function checkNeighbours(row: number, col: number){
     // only on corners
     if (row === 0 && col === 0){
       return (currentBoard[row + 1][col] === null 
@@ -206,12 +206,31 @@ function App() {
 
   }
 
-  function checkQueenInLayer(row: int, col: int){
-    for (let i = 0; i < currentBoard.length; i++) {
-     
-    }
+  function checkMultipleQueenInLayer(row: number, col: number){
+    const layerValue = LAYER_BOARD[row][col];
+    const layerIndexes: number[][] = getIndexesForLayerValue(layerValue);
+    let queenCount = 0;
+    for (let i = 0; i < layerIndexes.length; i++) {
+      const [r, c] = layerIndexes[i];
+      if(currentBoard[r][c]?.type === "img"){
+        queenCount += 1;
+      }
+    return false
   }
 
+  function getIndexesForLayerValue(layerValue: number){
+    const layerIndexes: number[][] = [];
+    for (let i = 0; i < LAYER_BOARD.length; i++) {
+      for (let j = 0; j < LAYER_BOARD[i].length; j++) {
+        if(LAYER_BOARD[i][j] === layerValue){
+          layerIndexes.push([i, j]);
+        }
+      }
+    }
+    return layerIndexes;
+  }
+
+  
 
   // if there is a queen in neighbouring squares, get its position and 
   // turn both current queen and neighbouring queen to red queen 
@@ -241,13 +260,13 @@ function App() {
   //     //highlight given region with red color
   //   }
   // }
-
+  }
   return (
     <main>
         {/* {(winner || isDraw )  && <GameOver winner={winner} resetGame={resetGame} />} */}
         <div className="game-section">
           <div className="board-section">
-              <GameBoard handleSquareSelect={(row,col)=>{handleSquareSelect(row, col)}} board={currentBoard} layerBoard={LAYER_BOARD} checkLayerBoard={checkLayerBoard} />
+              <GameBoard handleSquareSelect={(row: number, col: number) => { handleSquareSelect(row, col) }} board={currentBoard} layerBoard={LAYER_BOARD} checkLayerBoard={checkLayerBoard} />
           </div>
 
           <div className="instruction-section">
